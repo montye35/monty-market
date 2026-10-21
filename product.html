@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff8e6">
+  <title>تفاصيل التيشيرت | Monty Market</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #fff8e6;
+      --ink: #20392c;
+      --line: #e3d6ac;
+      --red: #d83c32;
+      --green: #28734b;
+      --white: #fffdf6;
+      --muted: #687366;
+      --sans: "Segoe UI", Tahoma, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { min-height: 100vh; margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); }
+    a { color: inherit; text-decoration: none; }
+    .announcement { display: grid; min-height: 34px; place-items: center; padding: 7px 16px; background: var(--green); color: var(--white); text-align: center; font-size: 11px; }
+    .site-header { border-bottom: 1px solid var(--line); }
+    .header-inner { width: min(1120px, calc(100% - 48px)); min-height: 78px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .wordmark { direction: ltr; font: 800 30px/1 "Outfit", var(--sans); letter-spacing: -.045em; }
+    .wordmark span { color: var(--red); }
+    .back-link { font-size: 13px; }
+    .back-link:hover { color: var(--red); }
+    .product-layout { width: min(1120px, calc(100% - 48px)); min-height: 620px; margin: 48px auto 72px; display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: clamp(32px, 6vw, 76px); }
+    .product-visual { position: sticky; top: 24px; overflow: hidden; border-radius: 8px; background: var(--white); }
+    .product-visual img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: contain; }
+    .variant-choices { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .variant-choice { width: 66px; padding: 4px; border: 1px solid var(--line); border-radius: 6px; background: var(--white); cursor: pointer; }
+    .variant-choice[aria-pressed="true"] { border: 2px solid var(--green); padding: 3px; }
+    .variant-choice img { display: block; width: 100%; aspect-ratio: 1 / 1.15; border-radius: 3px; object-fit: cover; }
+    .variant-choice span { display: block; padding: 5px 0 2px; color: var(--muted); font: 10px var(--sans); text-align: center; }
+    .color-options { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .color-option { display: inline-flex; min-height: 44px; align-items: center; gap: 9px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 7px; background: var(--white); color: var(--ink); cursor: pointer; font-size: 12px; }
+    .color-option[aria-pressed="true"] { border: 2px solid var(--green); padding: 5px 11px; }
+    .color-swatch { width: 20px; height: 20px; flex: 0 0 auto; border: 1px solid #20392c38; border-radius: 50%; }
+    .selected-color { margin-top: 10px !important; font-size: 12px !important; }
+    .product-copy { padding: 18px 0; }
+    .eyebrow { margin: 0 0 12px; color: var(--red); font-size: 12px; font-weight: 700; }
+    h1 { margin: 0; font-size: clamp(27px, 4vw, 40px); line-height: 1.4; }
+    .price { margin: 14px 0 27px; font-size: 20px; font-weight: 700; }
+    .info-section { padding: 20px 0; border-top: 1px solid var(--line); }
+    .info-section h2 { margin: 0 0 10px; font-size: 16px; }
+    .info-section p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.9; }
+    .size-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .size-chip { min-width: 42px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 6px; text-align: center; font-size: 13px; }
+    .placeholder-note { color: var(--muted); font-size: 12px; line-height: 1.8; }
+    .primary-link, .add-to-cart { display: inline-flex; min-height: 46px; align-items: center; justify-content: center; margin-top: 23px; padding: 0 20px; border: 0; border-radius: 8px; background: var(--red); color: white; font: inherit; font-size: 13px; cursor: pointer; transition: background .2s ease; }
+    .primary-link:hover { background: #943827; }
+    .add-to-cart:hover { background: #943827; }
+    .cart-feedback { min-height: 20px; margin-top: 10px !important; color: var(--green) !important; font-size: 12px !important; }
+    .not-found { width: min(600px, calc(100% - 40px)); margin: 100px auto; text-align: center; }
+    .not-found h1 { font-size: 26px; }
+    @media (max-width: 680px) {
+      .header-inner, .product-layout { width: calc(100% - 32px); }
+      .header-inner { min-height: 68px; }
+      .wordmark { font-size: 27px; }
+      .back-link { font-size: 11px; }
+      .product-layout { min-height: auto; margin: 22px auto 48px; grid-template-columns: 1fr; gap: 12px; }
+      .product-visual { position: static; }
+      .product-visual img { aspect-ratio: 1 / .9; }
+      .product-copy { padding-top: 8px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement">الشحن مجاني للطلبات فوق ١٥٠٠ جنيه</div>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="wordmark" href="index.html#top" aria-label="Monty Market الصفحة الرئيسية">monty<span>.</span></a>
+      <a class="back-link" href="index.html#shop">← الرجوع لكل التيشيرتات</a>
+    </div>
+  </header>
+  <main id="productDetails" aria-live="polite"></main>
+  <script src="products.js"></script>
+  <script>
+    const formatPrice = amount => `${new Intl.NumberFormat("ar-EG").format(amount)} ج.م`;
+    const imageUrl = filename => `assets/products/${filename}`;
+    const query = new URLSearchParams(window.location.search);
+    const productId = Number(query.get("id"));
+    const product = window.MONTY_PRODUCTS.find(item => item.id === productId);
+    const container = document.getElementById("productDetails");
+
+    if (!product) {
+      document.title = "المنتج غير موجود | Monty Market";
+      container.innerHTML = `
+        <section class="not-found">
+          <h1>المنتج غير موجود</h1>
+          <p class="placeholder-note">الرابط غير صحيح أو لم يعد المنتج متاحًا.</p>
+          <a class="primary-link" href="index.html#shop">العودة للتيشيرتات</a>
+        </section>`;
+    } else {
+      document.title = `${product.name} | Monty Market`;
+      const description = product.description || "تفاصيل وصف المنتج ستُضاف بعد استلام بياناته.";
+      const material = product.material || "تفاصيل الخامة ستُضاف بعد استلام بيانات المنتج.";
+      const sizes = product.sizes.length
+        ? `<div class="size-list">${product.sizes.map(size => `<span class="size-chip">${size}</span>`).join("")}</div>`
+        : `<p class="placeholder-note">المقاسات المتاحة ستُضاف بعد استلام بيانات المنتج.</p>`;
+      const variants = product.variants || [];
+      const selectedVariant = variants.find(variant => variant.image === query.get("variant")) || variants[0];
+      const selectedImage = selectedVariant ? selectedVariant.image : product.image;
+      const colors = product.colors || [];
+      const selectedColor = colors.find(color => color.id === query.get("color")) || colors[0];
+      const variantChoices = variants.length > 1
+        ? `<section class="info-section" aria-labelledby="colorsTitle"><h2 id="colorsTitle">اختار اللون</h2><div class="variant-choices" role="group" aria-label="ألوان ${product.name}">${variants.map(variant => `<button class="variant-choice" type="button" data-variant-image="${variant.image}" data-variant-label="${variant.label}" aria-label="${variant.label}" aria-pressed="${variant.image === selectedImage}"><img src="${imageUrl(variant.image)}" alt=""><span>${variant.label}</span></button>`).join("")}</div></section>`
+        : "";
+      const colorChoices = colors.length
+        ? `<section class="info-section" aria-labelledby="colorOptionsTitle"><h2 id="colorOptionsTitle">اختار اللون</h2><div class="color-options" role="group" aria-label="ألوان ${product.name}">${colors.map(color => `<button class="color-option" type="button" data-product-color="${color.id}" data-color-label="${color.label}" aria-pressed="${color.id === selectedColor.id}"><span class="color-swatch" style="background:${color.swatch}" aria-hidden="true"></span>${color.label}</button>`).join("")}</div><p class="selected-color" id="selectedColor" role="status">اللون المختار: ${selectedColor.label}</p><p class="placeholder-note">الصورة تعرض الألوان الثلاثة معًا؛ اختيار الزر يحدد اللون المطلوب.</p></section>`
+        : "";
+
+      container.innerHTML = `
+        <article class="product-layout">
+          <div class="product-visual">
+            <img id="productImage" src="${imageUrl(selectedImage)}" alt="${product.name}${selectedVariant ? ` - ${selectedVariant.label}` : ""}">
+          </div>
+          <div class="product-copy">
+            <p class="eyebrow">${product.label}${variants.length ? ` · ${new Intl.NumberFormat("ar-EG").format(variants.length)} ألوان متاحة` : ""}</p>
+            <h1>${product.name}</h1>
+            <p class="price">${formatPrice(product.price)}</p>
+            ${variantChoices}
+            ${colorChoices}
+            <section class="info-section" aria-labelledby="descriptionTitle">
+              <h2 id="descriptionTitle">عن التيشيرت</h2>
+              <p>${description}</p>
+            </section>
+            <section class="info-section" aria-labelledby="materialTitle">
+              <h2 id="materialTitle">الخامة</h2>
+              <p>${material}</p>
+            </section>
+            <section class="info-section" aria-labelledby="sizesTitle">
+              <h2 id="sizesTitle">المقاسات المتاحة</h2>
+              ${sizes}
+            </section>
+            <button class="add-to-cart" id="addToCart" type="button">أضف للسلة</button>
+            <p class="cart-feedback" id="cartFeedback" role="status" aria-live="polite"></p>
+            <a class="primary-link" href="index.html#shop">العودة للتسوق</a>
+          </div>
+        </article>`;
+      container.addEventListener("click", event => {
+        const variantButton = event.target.closest("[data-variant-image]");
+        if (variantButton) {
+          const image = document.getElementById("productImage");
+          image.src = imageUrl(variantButton.dataset.variantImage);
+          image.alt = `${product.name} - ${variantButton.dataset.variantLabel}`;
+          container.querySelectorAll("[data-variant-image]").forEach(choice => {
+            choice.setAttribute("aria-pressed", String(choice === variantButton));
+          });
+        }
+        const colorButton = event.target.closest("[data-product-color]");
+        if (colorButton) {
+          container.querySelectorAll("[data-product-color]").forEach(choice => {
+            choice.setAttribute("aria-pressed", String(choice === colorButton));
+          });
+          document.getElementById("selectedColor").textContent = `اللون المختار: ${colorButton.dataset.colorLabel}`;
+          query.set("color", colorButton.dataset.productColor);
+          query.delete("variant");
+          history.replaceState(null, "", `${window.location.pathname}?${query.toString()}`);
+        }
+        if (event.target.closest("#addToCart")) {
+          const selectedColorButton = container.querySelector('[data-product-color][aria-pressed="true"]');
+          const selectedVariantButton = container.querySelector('[data-variant-image][aria-pressed="true"]');
+          const selectedColor = product.colors?.find(color => color.id === selectedColorButton?.dataset.productColor);
+          const selectedVariant = product.variants?.find(variant => variant.image === selectedVariantButton?.dataset.variantImage);
+          const selectedImage = selectedVariant?.image || selectedColor?.image || product.image;
+          const variantLabel = selectedColor?.label || selectedVariant?.label || "";
+          const cartKey = `${product.id}:${selectedImage}:${selectedColor?.id || ""}`;
+          const cart = new Map(JSON.parse(localStorage.getItem("monty-market-cart") || "[]").map(item => [item.cartKey, item]));
+          const current = cart.get(cartKey);
+          cart.set(cartKey, {
+            ...product,
+            image: selectedImage,
+            variantLabel,
+            colorId: selectedColor?.id,
+            cartKey,
+            quantity: current ? current.quantity + 1 : 1
+          });
+          localStorage.setItem("monty-market-cart", JSON.stringify([...cart.values()]));
+          document.getElementById("cartFeedback").textContent = `تمت إضافة ${product.name}${variantLabel ? ` (${variantLabel})` : ""} إلى السلة.`;
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff8e6">
+  <title>Monty Market | لبسك اليومي، بطريقتك</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #fff8e6;
+      --paper-deep: #f4d46a;
+      --ink: #20392c;
+      --muted: #687366;
+      --line: #e3d6ac;
+      --red: #d83c32;
+      --orange: #b74815;
+      --yellow: #f2c744;
+      --green: #28734b;
+      --white: #fffdf6;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Segoe UI", Tahoma, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); }
+    button, input { font: inherit; }
+    button, .primary-link { color: inherit; border-radius: 8px; }
+    a { color: inherit; text-decoration: none; }
+    .announcement { min-height: 34px; display: flex; align-items: center; justify-content: center; padding: 7px 16px; background: var(--green); color: #fffdf9; text-align: center; font-size: 11px; letter-spacing: .02em; }
+    .site-header { position: relative; z-index: 2; background: var(--paper); border-bottom: 1px solid var(--line); }
+    .header-inner { width: min(1320px, calc(100% - 64px)); min-height: 82px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 28px; }
+    .main-nav { grid-column: 2; grid-row: 1; justify-self: center; display: flex; align-items: center; gap: 25px; font-size: 13px; }
+    .main-nav a { transition: color .2s ease; }
+    .main-nav a:hover { color: var(--red); }
+    .wordmark { direction: ltr; text-align: center; font: 700 27px/1 var(--serif); letter-spacing: .015em; white-space: nowrap; }
+    .site-header .wordmark { grid-column: 3; grid-row: 1; justify-self: start; font: 800 31px/1 "Outfit", var(--sans); letter-spacing: -.045em; }
+    .wordmark span { color: var(--red); }
+    .header-tools { grid-column: 1; grid-row: 1; justify-self: end; display: flex; align-items: center; justify-content: flex-start; gap: 17px; }
+    .search-wrap { position: relative; display: block; flex: 0 0 auto; width: min(225px, 20vw); height: 34px; }
+    .search-wrap input { width: 100%; border: 0; border-bottom: 1px solid var(--line); outline: none; padding: 9px 29px 9px 4px; background: transparent; color: var(--ink); font-size: 12px; }
+    .search-wrap input:focus { border-color: var(--ink); }
+    .search-icon { position: absolute; right: 2px; top: 7px; width: 15px; height: 15px; pointer-events: none; }
+    .icon-button { position: relative; display: grid; place-items: center; width: 38px; height: 38px; padding: 0; border: 0; background: transparent; cursor: pointer; }
+    .icon-button svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .cart-count { position: absolute; top: 0; left: 0; display: grid; place-items: center; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 50%; background: var(--red); color: white; font-size: 9px; }
+    .mobile-menu { display: none; }
+    .hero { padding: 28px 0 54px; }
+    .hero-grid { width: min(1320px, calc(100% - 64px)); min-height: 520px; margin: 0 auto; display: grid; grid-template-columns: .88fr 1.12fr; background: var(--paper-deep); overflow: hidden; }
+    .hero-copy { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: clamp(34px, 6vw, 88px); }
+    .eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 20px; color: var(--red); font-size: 11px; font-weight: 700; letter-spacing: .09em; }
+    .eyebrow::before { content: ""; width: 26px; height: 1px; background: currentColor; }
+    .hero h1 { max-width: 460px; margin: 0; font-size: clamp(39px, 5.2vw, 70px); line-height: 1.22; font-weight: 700; letter-spacing: 0; }
+    .hero h1 em { color: var(--red); font-style: normal; }
+    .hero-description { max-width: 370px; margin: 20px 0 30px; color: #625f58; font-size: 14px; line-height: 1.9; }
+    .primary-link { display: inline-flex; align-items: center; gap: 22px; min-height: 48px; padding: 0 19px; background: var(--red); color: white; font-size: 13px; transition: background .2s ease, transform .2s ease; }
+    .primary-link:hover { background: #943827; transform: translateY(-2px); }
+    .primary-link svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+    .hero-note { display: flex; align-items: center; gap: 10px; margin-top: 38px; color: var(--muted); font-size: 11px; }
+    .hero-note b { color: var(--ink); font-family: var(--serif); font-size: 18px; font-weight: 400; }
+    .hero-image { position: relative; min-height: 520px; border-radius: 8px; background: #c5b8a7; overflow: hidden; }
+    .hero-image img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 34%; animation: image-arrive .8s ease-out both; }
+    .image-caption { position: absolute; right: 20px; bottom: 20px; display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--white); font-size: 11px; }
+    .image-caption span { color: var(--orange); font-size: 16px; }
+    .section { width: min(1320px, calc(100% - 64px)); margin: 0 auto; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin: 0 0 23px; }
+    .section-heading h2 { margin: 0; font-size: 27px; line-height: 1.3; }
+    .section-heading p { margin: 6px 0 0; color: var(--muted); font-size: 12px; }
+    .text-link { display: inline-flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--ink); font-size: 12px; white-space: nowrap; }
+    .text-link svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+    .catalog { padding: 14px 0 80px; }
+    .filters { display: flex; align-items: center; gap: 7px; margin-bottom: 21px; overflow-x: auto; scrollbar-width: none; }
+    .filters::-webkit-scrollbar { display: none; }
+    .filter-button { flex: 0 0 auto; min-height: 36px; padding: 0 15px; border: 1px solid var(--line); background: transparent; color: #656158; font-size: 11px; cursor: pointer; transition: all .18s ease; }
+    .filter-button:hover, .filter-button.active { border-color: var(--green); background: var(--green); color: white; }
+    .product-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px 16px; }
+    .product-card { min-width: 0; animation: card-arrive .35s ease both; }
+    .product-image { position: relative; aspect-ratio: 4 / 4.7; border-radius: 8px; overflow: hidden; background: #e3ded4; }
+    .product-image img { display: block; width: 100%; height: 100%; object-fit: contain; transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+    .product-card:hover .product-image img { transform: scale(1.045); }
+    .variant-thumbnails { display: flex; align-items: center; gap: 7px; margin-top: 11px; }
+    .variant-thumbnail { width: 34px; height: 42px; padding: 2px; overflow: hidden; border: 1px solid var(--line); border-radius: 5px; background: var(--white); cursor: pointer; }
+    .variant-thumbnail[aria-pressed="true"] { border: 2px solid var(--green); padding: 1px; }
+    .variant-thumbnail img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .product-badge { position: absolute; top: 11px; right: 11px; padding: 6px 9px; background: var(--yellow); color: var(--ink); font-size: 9px; }
+    .favorite { position: absolute; top: 7px; left: 7px; width: 34px; height: 34px; display: grid; place-items: center; border: 0; background: var(--white); cursor: pointer; }
+    .favorite svg { width: 17px; height: 17px; fill: none; stroke: var(--ink); stroke-width: 1.5; }
+    .favorite.selected svg { fill: var(--red); stroke: var(--red); }
+    .product-info { padding: 12px 1px 0; }
+    .product-name { margin: 0; font-size: 13px; font-weight: 500; }
+    .product-details-link { display: inline-block; margin-top: 8px; color: var(--green); font-size: 11px; }
+    .product-details-link:hover { color: var(--red); }
+    .product-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; color: var(--muted); font-size: 10px; }
+    .product-price { color: var(--ink); font-size: 13px; font-weight: 700; white-space: nowrap; }
+    .product-bottom { display: flex; align-items: center; justify-content: flex-start; gap: 8px; margin-top: 13px; }
+    .add-button { min-height: 34px; padding: 0 10px; border: 1px solid var(--line); background: transparent; font-size: 10px; cursor: pointer; transition: all .2s ease; }
+    .add-button:hover { border-color: var(--red); background: var(--red); color: white; }
+    .empty-state { display: none; padding: 48px 12px; text-align: center; color: var(--muted); font-size: 13px; }
+    .benefits { background: var(--green); color: white; }
+    .benefit-grid { width: min(1320px, calc(100% - 64px)); min-height: 120px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; gap: 18px; }
+    .benefit { display: flex; align-items: center; justify-content: center; gap: 13px; padding: 16px 8px; }
+    .benefit svg { width: 25px; height: 25px; flex: 0 0 auto; fill: none; stroke: var(--yellow); stroke-width: 1.4; }
+    .benefit strong { display: block; margin-bottom: 4px; font-size: 12px; font-weight: 600; }
+    .benefit span { color: #dddcd3; font-size: 10px; }
+    .newsletter { padding: 67px 20px 74px; text-align: center; }
+    .newsletter .eyebrow { justify-content: center; margin-bottom: 12px; }
+    .newsletter h2 { margin: 0; font-size: 25px; }
+    .newsletter p { margin: 10px 0 23px; color: var(--muted); font-size: 12px; }
+    .newsletter-form { display: flex; width: min(430px, 100%); margin: auto; border-bottom: 1px solid var(--ink); }
+    .newsletter-form input { flex: 1; min-width: 0; padding: 12px 3px; border: 0; outline: none; background: transparent; font-size: 12px; }
+    .newsletter-form button { padding: 0 5px 0 12px; border: 0; background: transparent; color: var(--orange); font-size: 12px; font-weight: 700; cursor: pointer; }
+    .footer { padding: 28px 0; border-top: 1px solid var(--line); }
+    .footer-inner { width: min(1320px, calc(100% - 64px)); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 18px; color: var(--muted); font-size: 10px; }
+    .footer .wordmark { color: var(--ink); font-size: 20px; }
+    .footer-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px 18px; }
+    .footer-links a:hover { color: var(--red); }
+    .cart-overlay { position: fixed; z-index: 5; inset: 0; background: rgba(27,25,22,.42); opacity: 0; visibility: hidden; transition: opacity .2s ease, visibility .2s ease; }
+    .cart-overlay.open { opacity: 1; visibility: visible; }
+    .cart-panel { position: absolute; top: 0; left: 0; display: flex; flex-direction: column; width: min(410px, 100%); height: 100%; padding: 24px; background: var(--paper); transform: translateX(-100%); transition: transform .25s ease; }
+    .cart-overlay.open .cart-panel { transform: translateX(0); }
+    .cart-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .cart-head h2 { margin: 0; font-size: 19px; }
+    .cart-items { flex: 1; overflow-y: auto; }
+    .cart-empty { padding: 36px 0; color: var(--muted); text-align: center; font-size: 13px; }
+    .cart-line { display: grid; grid-template-columns: 64px 1fr auto; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+    .cart-line img { width: 64px; height: 76px; border-radius: 6px; object-fit: cover; background: var(--paper-deep); }
+    .cart-line h3 { margin: 2px 0 7px; font-size: 12px; }
+    .cart-line p { margin: 0; color: var(--muted); font-size: 11px; }
+    .quantity-controls { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+    .quantity-controls button { width: 23px; height: 23px; border: 1px solid var(--line); background: transparent; cursor: pointer; }
+    .quantity-controls span { font-size: 11px; }
+    .remove-item { align-self: start; border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 17px; }
+    .cart-total { display: flex; justify-content: space-between; padding: 17px 0; border-top: 1px solid var(--line); font-size: 13px; font-weight: 700; }
+    .checkout-button { min-height: 48px; border: 0; background: var(--red); color: white; font-size: 13px; cursor: pointer; }
+    .floating-cart { position: fixed; z-index: 4; bottom: 24px; left: 24px; width: 54px; height: 54px; border-radius: 50%; background: var(--red); color: white; box-shadow: 0 5px 18px #20392c38; }
+    .floating-cart .cart-count { top: -2px; left: -2px; }
+    .toast { position: fixed; z-index: 7; right: 50%; bottom: 24px; padding: 12px 18px; background: var(--ink); color: white; font-size: 12px; opacity: 0; transform: translate(50%, 10px); transition: .2s ease; pointer-events: none; }
+    .toast.show { opacity: 1; transform: translate(50%, 0); }
+    @keyframes image-arrive { from { opacity: .5; transform: scale(1.025); } to { opacity: 1; transform: scale(1); } }
+    @keyframes card-arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 900px) {
+      .header-inner, .hero-grid, .section, .benefit-grid, .footer-inner { width: min(100% - 40px, 720px); }
+      .header-inner { grid-template-columns: 1fr auto 1fr; gap: 14px; }
+      .main-nav { gap: 14px; }
+      .search-wrap { width: 34px; }
+      .search-wrap input { position: absolute; top: 43px; left: 0; display: none; width: 220px; padding: 10px; background: var(--white); box-shadow: 0 4px 12px #24231f1a; }
+      .search-wrap:focus-within input, .search-wrap.open input { display: block; }
+      .hero-grid { min-height: 440px; grid-template-columns: .95fr 1.05fr; }
+      .hero-image { min-height: 440px; }
+      .hero-copy { padding: 34px; }
+      .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 14px; }
+    }
+    @media (max-width: 600px) {
+      .announcement { min-height: 31px; font-size: 10px; }
+      .header-inner { width: calc(100% - 32px); min-height: 68px; grid-template-columns: 1fr auto auto; gap: 8px; }
+      .floating-cart { bottom: 16px; left: 16px; }
+      .mobile-menu { display: grid; grid-column: 1; grid-row: 1; justify-self: end; }
+      .main-nav { position: absolute; top: 100%; right: 0; left: 0; display: none; flex-direction: column; align-items: stretch; gap: 0; padding: 8px 20px; border-bottom: 1px solid var(--line); background: var(--paper); }
+      .main-nav.open { display: flex; }
+      .main-nav a { padding: 13px 0; border-bottom: 1px solid var(--line); }
+      .site-header .wordmark { grid-column: 3; grid-row: 1; justify-self: start; font-size: 27px; }
+      .header-tools { grid-column: 2; grid-row: 1; justify-self: center; }
+      .header-tools { gap: 6px; }
+      .search-wrap { width: 30px; }
+      .header-tools .icon-button { width: 34px; }
+      .hero { padding: 14px 0 38px; }
+      .hero-grid { width: calc(100% - 24px); display: flex; flex-direction: column-reverse; }
+      .hero-image { min-height: 330px; }
+      .hero-copy { padding: 28px 23px 26px; }
+      .eyebrow { margin-bottom: 12px; font-size: 10px; }
+      .hero h1 { max-width: 360px; font-size: 40px; }
+      .hero-description { margin: 13px 0 20px; font-size: 12px; }
+      .hero-note { margin-top: 23px; }
+      .image-caption { right: 12px; bottom: 12px; }
+      .section { width: calc(100% - 32px); }
+      .section-heading { align-items: center; margin-bottom: 17px; }
+      .section-heading h2 { font-size: 21px; }
+      .section-heading p { max-width: 230px; font-size: 10px; }
+      .text-link { font-size: 10px; }
+      .catalog { padding: 7px 0 53px; }
+      .filters { margin-left: -16px; margin-right: -16px; padding: 0 16px 4px; }
+      .filter-button { min-height: 34px; padding: 0 12px; }
+      .product-grid { gap: 22px 10px; }
+      .product-image { aspect-ratio: 4 / 4.8; }
+      .product-info { padding-top: 9px; }
+      .product-name { font-size: 11px; }
+      .product-meta { font-size: 9px; }
+      .product-price { font-size: 11px; }
+      .add-button { min-height: 31px; padding: 0 7px; font-size: 9px; }
+      .benefit-grid { width: calc(100% - 32px); grid-template-columns: 1fr; gap: 0; padding: 9px 0; }
+      .benefit { justify-content: flex-start; padding: 12px 6px; }
+      .benefit + .benefit { border-top: 1px solid #ffffff2b; }
+      .newsletter { padding: 48px 18px 53px; }
+      .newsletter h2 { font-size: 21px; }
+      .footer-inner { width: calc(100% - 32px); flex-wrap: wrap; justify-content: center; text-align: center; }
+      .footer-links { width: 100%; justify-content: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement">الشحن مجاني للطلبات فوق ١٥٠٠ جنيه <span aria-hidden="true">&nbsp; · &nbsp;</span> إطلالتك الجديدة تبدأ من هنا</div>
+  <header class="site-header">
+    <div class="header-inner">
+      <button class="icon-button mobile-menu" id="menuToggle" aria-label="فتح القائمة" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <nav class="main-nav" id="mainNav" aria-label="القائمة الرئيسية">
+        <a href="#new">وصل حديثًا</a>
+        <a href="#shop">تيشيرتات</a>
+        <a href="#benefits">عن مونتي</a>
+      </nav>
+      <a class="wordmark" href="#top" aria-label="Monty Market الصفحة الرئيسية">monty<span>.</span></a>
+      <div class="header-tools">
+        <label class="search-wrap" aria-label="ابحث في المنتجات">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
+          <input id="searchInput" type="search" placeholder="ابحث عن قطعة...">
+        </label>
+        <button class="icon-button" id="cartToggle" aria-label="سلة التسوق">
+          <svg viewBox="0 0 24 24"><path d="M4 8h16l-1.5 12h-13L4 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main id="top">
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">مجموعة الموسم · ٢٠٢٦</p>
+          <h1 id="heroTitle">أساسيات يومك،<br><em>على طريقتك.</em></h1>
+          <p class="hero-description">قطع كاجوال مريحة بتفاصيل معمولة عشان تعيش معاك. اختار لبسك، والباقي سهل.</p>
+          <a class="primary-link" href="#shop">اكتشف التيشيرتات <svg viewBox="0 0 24 24"><path d="M19 12H5m0 0 6 6m-6-6 6-6"/></svg></a>
+          <div class="hero-note"><b>01 /</b> خامات مريحة، طول اليوم</div>
+        </div>
+        <div class="hero-image">
+          <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1300&q=85" alt="إطلالة رجالية كاجوال بألوان طبيعية" fetchpriority="high">
+          <div class="image-caption"><span>✳</span> لبس يومي، بحضور مختلف</div>
+        </div>
+      </div>
+    </section>
+    <section class="section catalog" id="shop" aria-labelledby="productsTitle">
+      <div class="section-heading" id="new">
+        <div><h2 id="productsTitle">اختيارات مونتي</h2><p>قطع أساسية بتفاصيل صغيرة تفرق.</p></div>
+        <a href="#shop" class="text-link">كل المنتجات <svg viewBox="0 0 24 24"><path d="M19 12H5m0 0 6 6m-6-6 6-6"/></svg></a>
+      </div>
+      <div class="filters" role="group" aria-label="تصفية المنتجات">
+        <button class="filter-button active" data-filter="all" aria-pressed="true">كل القطع</button>
+        <button class="filter-button" data-filter="basic" aria-pressed="false">أساسيات</button>
+        <button class="filter-button" data-filter="oversized" aria-pressed="false">أوفر سايز</button>
+        <button class="filter-button" data-filter="graphic" aria-pressed="false">طبعات</button>
+        <button class="filter-button" data-filter="new" aria-pressed="false">وصل حديثًا</button>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+      <div class="empty-state" id="emptyState">مفيش قطع مطابقة للبحث. جرّب كلمة تانية.</div>
+    </section>
+    <section class="benefits" id="benefits" aria-label="مميزات التسوق">
+      <div class="benefit-grid">
+        <div class="benefit"><svg viewBox="0 0 24 24"><path d="M3 7h11v11H3zM14 11h4l3 3v4h-7z"/><circle cx="7.5" cy="19" r="1.5"/><circle cx="18" cy="19" r="1.5"/></svg><div><strong>توصيل لكل مصر</strong><span>لحد باب بيتك، بكل سهولة</span></div></div>
+        <div class="benefit"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/><path d="m15 16 2 2 4-5"/></svg><div><strong>استبدال سهل</strong><span>مقاسك مش مناسب؟ إحنا معاك</span></div></div>
+        <div class="benefit"><svg viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.7 3.2 7.8 7.5 9.5 4.3-1.7 7.5-4.8 7.5-9.5V6L12 3Z"/><path d="m9 12 2 2 4-4"/></svg><div><strong>دفع آمن</strong><span>طرق دفع تناسبك</span></div></div>
+      </div>
+    </section>
+    <section class="newsletter" aria-labelledby="newsletterTitle">
+      <p class="eyebrow">خليك قريب</p>
+      <h2 id="newsletterTitle">الجديد يوصلك الأول.</h2>
+      <p>سجّل بريدك عشان تعرف كل جديد من مونتي.</p>
+      <form class="newsletter-form" id="newsletterForm"><input type="email" placeholder="بريدك الإلكتروني" aria-label="بريدك الإلكتروني" required><button type="submit">اشترك ←</button></form>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="footer-inner"><a class="wordmark" href="#top">monty<span>.</span></a><span>© ٢٠٢٦ Monty Market · صنع بحب في مصر</span><div class="footer-links"><a href="mailto:montoe35@gmail.com">الشكاوى والاقتراحات: montoe35@gmail.com</a><a href="https://wa.me/201280135908?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%AD%D8%AC%D8%B2" target="_blank" rel="noopener noreferrer">واتساب للحجز: 01280135908</a></div></div>
+  </footer>
+  <button class="icon-button floating-cart" id="floatingCartToggle" aria-label="فتح سلة التسوق">
+    <svg viewBox="0 0 24 24"><path d="M4 8h16l-1.5 12h-13L4 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>
+    <span class="cart-count" id="floatingCartCount">0</span>
+  </button>
+  <div class="cart-overlay" id="cartOverlay" aria-hidden="true">
+    <aside class="cart-panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+      <div class="cart-head"><h2 id="cartTitle">سلة التسوق</h2><button class="icon-button" id="cartClose" aria-label="إغلاق السلة"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-total"><span>قيمة المنتجات</span><span id="cartSubtotal">٠ ج.م</span></div>
+      <div class="cart-total"><span>التوصيل</span><span id="cartDelivery">٠ ج.م</span></div>
+      <div class="cart-total"><span>الإجمالي</span><span id="cartTotal">٠ ج.م</span></div>
+      <button class="checkout-button" id="checkoutButton">إتمام الطلب</button>
+    </aside>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="products.js"></script>
+  <script>
+    const products = window.MONTY_PRODUCTS;
+    const deliveryFee = 45;
+    const cartStorageKey = "monty-market-cart";
+    const savedCart = JSON.parse(localStorage.getItem(cartStorageKey) || "[]");
+    const cart = new Map(savedCart.map(item => [item.cartKey, item]));
+    let activeFilter = "all";
+    let searchTerm = "";
+    const formatPrice = amount => `${new Intl.NumberFormat("ar-EG").format(amount)} ج.م`;
+    const imageUrl = filename => `assets/products/${filename}`;
+    const productGrid = document.getElementById("productGrid");
+    const emptyState = document.getElementById("emptyState");
+    const toast = document.getElementById("toast");
+    let toastTimer;
+
+    function renderProducts() {
+      const shownProducts = products.filter(product => {
+        const matchesFilter = activeFilter === "all" || product.type === activeFilter || (activeFilter === "new" && product.label === "وصل حديثًا");
+        const matchesSearch = product.name.toLowerCase().includes(searchTerm);
+        return matchesFilter && matchesSearch;
+      });
+      productGrid.innerHTML = shownProducts.map((product, index) => {
+        const variants = product.variants || [{ image: product.image, label: "اللون الافتراضي" }];
+        const thumbnails = product.variants ? `<div class="variant-thumbnails" role="group" aria-label="ألوان ${product.name}">${variants.map((variant, variantIndex) => `<button class="variant-thumbnail" type="button" data-variant-image="${variant.image}" data-variant-label="${variant.label}" aria-label="${variant.label}" aria-pressed="${variantIndex === 0}"><img src="${imageUrl(variant.image)}" alt=""></button>`).join("")}</div>` : "";
+        return `
+        <article class="product-card" data-product-id="${product.id}" data-image="${product.image}" style="animation-delay:${index * 35}ms">
+          <div class="product-image"><a href="product.html?id=${product.id}" aria-label="تفاصيل ${product.name}"><img src="${imageUrl(product.image)}" alt="${product.name} متوفر بثلاثة ألوان" loading="lazy"></a><span class="product-badge">${product.label}</span><button class="favorite" aria-label="أضف ${product.name} للمفضلة" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M20.8 8.8c0 5-8.8 10-8.8 10s-8.8-5-8.8-10a4.6 4.6 0 0 1 8.8-1.7 4.6 4.6 0 0 1 8.8 1.7Z"/></svg></button></div>
+          <div class="product-info"><h3 class="product-name"><a href="product.html?id=${product.id}">${product.name}</a></h3><div class="product-meta"><span>${product.variants ? `${new Intl.NumberFormat("ar-EG").format(variants.length)} ألوان متاحة` : "٣ ألوان متاحة"}</span><span class="product-price">${formatPrice(product.price)}</span></div>${thumbnails}<a class="product-details-link" href="product.html?id=${product.id}">عرض التفاصيل والمقاسات</a><div class="product-bottom"><button class="add-button" data-add="${product.id}">أضف للسلة +</button></div></div>
+        </article>`;
+      }).join("");
+      emptyState.style.display = shownProducts.length ? "none" : "block";
+      productGrid.style.display = shownProducts.length ? "grid" : "none";
+    }
+
+    function renderCart() {
+      const cartItems = document.getElementById("cartItems");
+      const entries = [...cart.values()];
+      const count = entries.reduce((total, item) => total + item.quantity, 0);
+      const subtotal = entries.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const shipping = count > 0 ? deliveryFee : 0;
+      localStorage.setItem(cartStorageKey, JSON.stringify(entries));
+      const formattedCount = new Intl.NumberFormat("ar-EG").format(count);
+      document.getElementById("cartCount").textContent = formattedCount;
+      document.getElementById("floatingCartCount").textContent = formattedCount;
+      document.getElementById("cartSubtotal").textContent = formatPrice(subtotal);
+      document.getElementById("cartDelivery").textContent = formatPrice(shipping);
+      document.getElementById("cartTotal").textContent = formatPrice(subtotal + shipping);
+      cartItems.innerHTML = entries.length ? entries.map(item => `
+        <div class="cart-line"><img src="${imageUrl(item.image)}" alt="${item.name} ${item.variantLabel || ""}"><div><h3>${item.name}</h3><p>${item.variantLabel ? `${item.variantLabel} · ` : ""}${formatPrice(item.price)}</p><div class="quantity-controls"><button data-quantity="${item.cartKey}" data-change="-1" aria-label="تقليل الكمية">−</button><span>${new Intl.NumberFormat("ar-EG").format(item.quantity)}</span><button data-quantity="${item.cartKey}" data-change="1" aria-label="زيادة الكمية">+</button></div></div><button class="remove-item" data-remove="${item.cartKey}" aria-label="حذف ${item.name}">×</button></div>`).join("") : `<p class="cart-empty">لسه ما أضفتش حاجة للسلة.</p>`;
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+    }
+
+    function setCartOpen(open) {
+      const overlay = document.getElementById("cartOverlay");
+      overlay.classList.toggle("open", open);
+      overlay.setAttribute("aria-hidden", String(!open));
+      document.body.style.overflow = open ? "hidden" : "";
+      if (open) document.getElementById("cartClose").focus();
+    }
+
+    function buildWhatsAppCheckoutUrl(baseUrl, entries) {
+      const orderLines = entries.map((item, index) => {
+        const productUrl = new URL("product.html", baseUrl);
+        productUrl.searchParams.set("id", item.id);
+        if (item.variantLabel && item.variants?.some(variant => variant.image === item.image)) {
+          productUrl.searchParams.set("variant", item.image);
+        }
+        if (item.colorId) productUrl.searchParams.set("color", item.colorId);
+        return [
+          `${index + 1}) ${item.name}`,
+          `اللون: ${item.variantLabel || "حسب اختيارك"}`,
+          `الكمية: ${new Intl.NumberFormat("ar-EG").format(item.quantity)}`,
+          `السعر: ${formatPrice(item.price * item.quantity)}`,
+          `رابط المنتج: ${productUrl.href}`
+        ].join("\n");
+      });
+      const subtotal = entries.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const shipping = entries.some(item => item.quantity > 0) ? deliveryFee : 0;
+      const message = [
+        "السلام عليكم، أرغب في حجز المنتجات التالية:",
+        "",
+        ...orderLines.flatMap((line, index) => index ? ["", line] : [line]),
+        "",
+        `قيمة المنتجات: ${formatPrice(subtotal)}`,
+        `التوصيل: ${formatPrice(shipping)}`,
+        `الإجمالي شامل التوصيل: ${formatPrice(subtotal + shipping)}`,
+        "سأحدد المقاس المناسب عند التواصل."
+      ].join("\n");
+      return `https://wa.me/201280135908?text=${encodeURIComponent(message)}`;
+    }
+
+    document.querySelector(".filters").addEventListener("click", event => {
+      const button = event.target.closest("[data-filter]");
+      if (!button) return;
+      activeFilter = button.dataset.filter;
+      document.querySelectorAll(".filter-button").forEach(filter => {
+        const selected = filter === button;
+        filter.classList.toggle("active", selected);
+        filter.setAttribute("aria-pressed", String(selected));
+      });
+      renderProducts();
+    });
+    document.getElementById("searchInput").addEventListener("input", event => {
+      searchTerm = event.target.value.trim().toLowerCase();
+      renderProducts();
+    });
+    document.querySelector(".search-wrap").addEventListener("click", event => {
+      if (window.matchMedia("(max-width: 900px)").matches) {
+        event.currentTarget.classList.add("open");
+        document.getElementById("searchInput").focus();
+      }
+    });
+    productGrid.addEventListener("click", event => {
+      const variantButton = event.target.closest("[data-variant-image]");
+      if (variantButton) {
+        const card = variantButton.closest(".product-card");
+        const product = products.find(item => item.id === Number(card.dataset.productId));
+        const image = card.querySelector(".product-image img");
+        card.dataset.image = variantButton.dataset.variantImage;
+        image.src = imageUrl(variantButton.dataset.variantImage);
+        image.alt = `${product.name} - ${variantButton.dataset.variantLabel}`;
+        card.querySelectorAll('a[href^="product.html"]').forEach(link => {
+          link.href = `product.html?id=${product.id}&variant=${encodeURIComponent(variantButton.dataset.variantImage)}`;
+        });
+        card.querySelectorAll("[data-variant-image]").forEach(button => {
+          button.setAttribute("aria-pressed", String(button === variantButton));
+        });
+        return;
+      }
+      const addButton = event.target.closest("[data-add]");
+      if (addButton) {
+        const product = products.find(item => item.id === Number(addButton.dataset.add));
+        const card = addButton.closest(".product-card");
+        const selectedImage = card.dataset.image;
+        const variant = product.variants?.find(item => item.image === selectedImage);
+        const cartKey = `${product.id}:${selectedImage}:`;
+        const current = cart.get(cartKey);
+        cart.set(cartKey, { ...product, image: selectedImage, variantLabel: variant?.label, colorId: undefined, cartKey, quantity: current ? current.quantity + 1 : 1 });
+        renderCart();
+        showToast("اتضافت القطعة لسلتك");
+      }
+      const favorite = event.target.closest(".favorite");
+      if (favorite) {
+        const selected = favorite.getAttribute("aria-pressed") !== "true";
+        favorite.setAttribute("aria-pressed", String(selected));
+        favorite.classList.toggle("selected", selected);
+      }
+    });
+    document.getElementById("cartItems").addEventListener("click", event => {
+      const quantityButton = event.target.closest("[data-quantity]");
+      const removeButton = event.target.closest("[data-remove]");
+      if (quantityButton) {
+        const key = quantityButton.dataset.quantity;
+        const item = cart.get(key);
+        const quantity = item.quantity + Number(quantityButton.dataset.change);
+        if (quantity < 1) cart.delete(key);
+        else cart.set(key, { ...item, quantity });
+        renderCart();
+      }
+      if (removeButton) {
+        cart.delete(removeButton.dataset.remove);
+        renderCart();
+      }
+    });
+    document.getElementById("cartToggle").addEventListener("click", () => setCartOpen(true));
+    document.getElementById("floatingCartToggle").addEventListener("click", () => setCartOpen(true));
+    document.getElementById("cartClose").addEventListener("click", () => setCartOpen(false));
+    document.getElementById("cartOverlay").addEventListener("click", event => {
+      if (event.target.id === "cartOverlay") setCartOpen(false);
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") setCartOpen(false);
+    });
+    document.getElementById("menuToggle").addEventListener("click", event => {
+      const nav = document.getElementById("mainNav");
+      const open = nav.classList.toggle("open");
+      event.currentTarget.setAttribute("aria-expanded", String(open));
+    });
+    document.getElementById("mainNav").addEventListener("click", event => {
+      if (event.target.closest("a")) {
+        document.getElementById("mainNav").classList.remove("open");
+        document.getElementById("menuToggle").setAttribute("aria-expanded", "false");
+      }
+    });
+    document.getElementById("newsletterForm").addEventListener("submit", event => {
+      event.preventDefault();
+      event.currentTarget.reset();
+      showToast("شكرًا! هنبعتلك كل جديد من مونتي.");
+    });
+    document.getElementById("checkoutButton").addEventListener("click", () => {
+      const entries = [...cart.values()];
+      if (!entries.length) {
+        showToast("سلتك فاضية. أضف تيشيرت قبل إتمام الطلب.");
+        return;
+      }
+      if (window.location.protocol !== "https:" && window.location.protocol !== "http:") {
+        showToast("لازم تنشر المتجر على رابط عام عشان نرسل روابط المنتجات على واتساب.");
+        return;
+      }
+
+      const whatsappUrl = buildWhatsAppCheckoutUrl(window.location.href, entries);
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    });
+
+    renderProducts();
+    renderCart();
+  </script>
+</body>
+</html>
