@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#fff8e6">
-  <title>تفاصيل التيشيرت | Monty Market</title>
+  <title>تفاصيل التيشيرت | Monté</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600;1,700&display=swap" rel="stylesheet">
   <style>
     :root {
       --paper: #fff8e6;
@@ -25,8 +25,7 @@
     .announcement { display: grid; min-height: 34px; place-items: center; padding: 7px 16px; background: var(--green); color: var(--white); text-align: center; font-size: 11px; }
     .site-header { border-bottom: 1px solid var(--line); }
     .header-inner { width: min(1120px, calc(100% - 48px)); min-height: 78px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-    .wordmark { direction: ltr; font: 800 30px/1 "Outfit", var(--sans); letter-spacing: -.045em; }
-    .wordmark span { color: var(--red); }
+    .wordmark { direction: ltr; font: italic 600 35px/1 "Cormorant Garamond", Georgia, serif; letter-spacing: -.025em; }
     .back-link { font-size: 13px; }
     .back-link:hover { color: var(--red); }
     .product-layout { width: min(1120px, calc(100% - 48px)); min-height: 620px; margin: 48px auto 72px; display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: clamp(32px, 6vw, 76px); }
@@ -77,7 +76,7 @@
   <div class="announcement">الشحن مجاني للطلبات فوق ١٥٠٠ جنيه</div>
   <header class="site-header">
     <div class="header-inner">
-      <a class="wordmark" href="index.html#top" aria-label="Monty Market الصفحة الرئيسية">monty<span>.</span></a>
+      <a class="wordmark" href="index.html#top" aria-label="Monté الصفحة الرئيسية">Monté</a>
       <a class="back-link" href="index.html#shop">← الرجوع لكل التيشيرتات</a>
     </div>
   </header>
@@ -92,7 +91,7 @@
     const container = document.getElementById("productDetails");
 
     if (!product) {
-      document.title = "المنتج غير موجود | Monty Market";
+      document.title = "المنتج غير موجود | Monté";
       container.innerHTML = `
         <section class="not-found">
           <h1>المنتج غير موجود</h1>
@@ -100,7 +99,7 @@
           <a class="primary-link" href="index.html#shop">العودة للتيشيرتات</a>
         </section>`;
     } else {
-      document.title = `${product.name} | Monty Market`;
+      document.title = `${product.name} | Monté`;
       const description = product.description || "تفاصيل وصف المنتج ستُضاف بعد استلام بياناته.";
       const material = product.material || "تفاصيل الخامة ستُضاف بعد استلام بيانات المنتج.";
       const sizes = product.sizes.length
