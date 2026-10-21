@@ -436,7 +436,7 @@
         const current = cart.get(cartKey);
         cart.set(cartKey, { ...product, image: selectedImage, variantLabel: variant?.label, colorId: undefined, cartKey, quantity: current ? current.quantity + 1 : 1 });
         renderCart();
-        showToast("اتضافت القطعة لسلتك");
+        showToast("تم اضافة القطعة لسلتك");
       }
       const favorite = event.target.closest(".favorite");
       if (favorite) {
